@@ -1,16 +1,152 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Resume</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        nav {
+            margin-top: 1rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .social-profiles {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .social-profiles a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #0077b5;
+        }
+        .social-profiles a i {
+            font-size: 24px;
+            margin-right: 8px;
+        }
+        .section {
+            margin-bottom: 2rem;
+        }
+        .work-item {
+            margin-bottom: 1.5rem;
+        }
+        .work-item h3 {
+            margin: 0;
+        }
+        .work-item p {
+            margin: 0.5rem 0;
+        }
+    </style>
 </head>
 <body>
-  <h1>Welcome to My Resume</h1>
-  
-  <!-- Embed PDF with iframe -->
-  <iframe src="https://github.com/architr4/my-resume/blob/main/Resume.pdf" width="100%" height="600px">
-    This browser does not support PDFs. Please download the PDF to view it: <a href="https://raw.githubusercontent.com/architr4/my-resume/main/Resume.pdf">Download PDF</a>.
-  </iframe>
+    <header>
+        <h1>Welcome to My Portfolio</h1>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#work">Work</a>
+            <a href="#education">Education</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    <div class="container">
+        <section id="about" class="section">
+            <h2>About Me</h2>
+            <p>Hello! I'm [Your Name], an individual with extensive experience in youth engagement through volunteering at multiple organizations. Proven ability to communicate effectively and develop strong interpersonal relationships. Additionally, I have contributed to various open-source projects and authored insightful articles on blockchain technology, demonstrating a commitment to collaborative development and continuous learning.</p>
+        </section>
+        <section class="social-profiles section">
+            <h2>Connect With Me</h2>
+            <a href="https://linkedin.com/in/your-profile" target="_blank"><i>🔗</i>LinkedIn</a>
+            <a href="https://github.com/your-profile" target="_blank"><i>💻</i>GitHub</a>
+            <a href="https://twitter.com/your-profile" target="_blank"><i>🐦</i>Twitter</a>
+        </section>
+        <section id="experience" class="section">
+            <h2>Experience</h2>
+            <div class="work-item">
+                <h3>Taekwondo Instructor Volunteer</h3>
+                <p><strong>Organization:</strong> Morrisville Taekwondo America | Morrisville, NC</p>
+                <p><strong>Dates:</strong> February 2024 – June 2024</p>
+                <p>Instructed students in martial arts techniques and principles. Provided hands-on experience in sparring and applications for children.</p>
+            </div>
+            <div class="work-item">
+                <h3>Chess Club Volunteer (Self-led)</h3>
+                <p><strong>Organization:</strong> YMCA of the Triangle | Cary, NC</p>
+                <p><strong>Dates:</strong> February 2024 – June 2024</p>
+                <p>Organized weekly sessions to teach and play chess with youth. Offered actionable advice to help children improve their chess skills.</p>
+            </div>
+            <div class="work-item">
+                <h3>Kids Zone Volunteer (Supervised)</h3>
+                <p><strong>Organization:</strong> YMCA of the Triangle | Cary, NC</p>
+<p><strong>Dates:</strong> February 2024 – June 2024</p>
+                <p>Collaborated with team members to supervise children in the Kids Zone. Volunteered on Mondays, Wednesdays, and Thursdays.</p>
+            </div>
+        </section>
+        <section id="work" class="section">
+            <h2>Open-Source Contributions</h2>
+            <div class="work-item">
+                <h3>Summer of Protocols 2024 Presentation</h3>
+            </div>
+            <h2>Publications</h2>
+            <div class="work-item">
+                <h3>Azuki & Elemental NFT Collection: The Rise and Plunge in Value, in Less Than 24 Hours</h3>
+                <p><strong>Published:</strong> EtherWorld | June 28, 2023</p>
+                <p>Analyzed the rapid sell-out and subsequent value decline of the Azuki & Elemental NFT project, providing insights into market dynamics and lessons for investors.</p>
+            </div>
+            <div class="work-item">
+                <h3>All You Need to Know About Ethereum's London Upgrade</h3>
+                <p><strong>Published:</strong> EtherWorld | August 5, 2021</p>
+                <p>Detailed the key highlights, upgrade schedule, client synchronization status, ETH fee burning, and Ethereum Improvement Proposals (EIPs) included in the London upgrade.</p>
+            </div>
+            <div class="work-item">
+                <h3>Insight of Ethereum Arrow Glacier Network Upgrade</h3>
+                <p><strong>Published:</strong> EtherWorld | December 9, 2021</p>
+                <p>Provided an overview of the Arrow Glacier upgrade, including the EIP involved, calculations related to the difficulty bomb, and essential information for the community.</p>
+            </div>
+            <div class="work-item">
+                <h3>Russia Welcomes Blockchain Technology for Economic Growth</h3>
+                <p><strong>Published:</strong> EtherWorld | March 6, 2017</p>
+                <p>Gave a summary of how Russia introduced blockchain technology into their economy.</p>
+            </div>
+        </section>
+        <section id="education" class="section">
+            <h2>Education</h2>
+            <p><strong>Institution:</strong> Green Hope High School | NC, USA</p>
+            <p><strong>Dates:</strong> September 2022 – June 2026</p>
+        </section>
+        <section id="contact" class="section">
+            <h2>Contact Me</h2>
+            <p>Email: <a href="mailto:email@gmail.com">email@gmail.com</a></p>
+        </section>
+    </div>
 </body>
 </html>
