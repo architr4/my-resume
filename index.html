@@ -1,153 +1,718 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archit Ranjan</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        header {
-            background-color: #333;
-            color: white;
-            padding: 1rem 0;
-            text-align: center;
-        }
-        header h1 {
-            margin: 0;
-        }
-        nav {
-            margin-top: 1rem;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 1rem;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        .container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 1rem;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .social-profiles {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        .social-profiles a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: #0077b5;
-        }
-        .social-profiles a i {
-            font-size: 24px;
-            margin-right: 8px;
-        }
-        .section {
-            margin-bottom: 2rem;
-        }
-        .work-item {
-            margin-bottom: 1.5rem;
-        }
-        .work-item h3 {
-            margin: 0;
-        }
-        .work-item p {
-            margin: 0.5rem 0;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Archit Ranjan — Resume</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --surface: #141414;
+    --card: #1a1a1a;
+    --border: #2a2a2a;
+    --accent: #FFC2B8;
+    --accent2: #FFC2B8;
+    --text: #e8e8e8;
+    --muted: #888;
+    --faint: #444;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.5;
+  }
+
+  /* GRID LINES */
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* LAYOUT */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HEADER */
+  header {
+    padding: 6rem 0 4rem;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+
+  .header-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 9vw, 7rem);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.2s;
+  }
+
+  .header-name span {
+    color: var(--accent);
+    font-style: italic;
+    font-weight: 700;
+  }
+
+  .header-tagline {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 580px;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.35s;
+  }
+
+  .header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.5s;
+  }
+
+  .meta-item {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .meta-item a {
+    color: var(--accent2);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+
+  .meta-item a:hover { border-color: var(--accent2); }
+
+  .meta-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* SECTION */
+  section {
+    padding: 4rem 0;
+    border-bottom: 1px solid var(--border);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5px;
+    border: 1.5px solid var(--border);
+    background: var(--border);
+  }
+
+  .skill-block {
+    background: var(--card);
+    padding: 1.5rem 2rem;
+    transition: background 0.2s;
+  }
+
+  .skill-block:hover { background: #1e1e1e; }
+
+  .skill-category {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-list {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .skill-tag {
+    display: inline-block;
+    background: rgba(200, 240, 74, 0.06);
+    border: 1px solid rgba(200, 240, 74, 0.15);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    padding: 0.2rem 0.6rem;
+    margin: 0.2rem 0.2rem 0.2rem 0;
+    border-radius: 2px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .skill-tag:hover {
+    background: rgba(200, 240, 74, 0.12);
+    border-color: rgba(200, 240, 74, 0.35);
+  }
+
+  /* EDUCATION */
+  .edu-card {
+    border: 1.5px solid var(--border);
+    padding: 2rem 2.5rem;
+    position: relative;
+    background: var(--card);
+  }
+
+  .edu-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+  }
+
+  .edu-school {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .edu-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .edu-meta span { color: var(--accent2); }
+
+  .edu-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .edu-item {
+    padding: 1rem 1.2rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .edu-item-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 0.4rem;
+  }
+
+  .edu-item-value {
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
+  /* EXPERIENCE */
+  .exp-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 2rem;
+    padding: 2rem 0;
+  }
+
+  .exp-card + .exp-card {
+    border-top: 1px solid var(--border);
+  }
+
+  .exp-timeline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .exp-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+
+  .exp-line {
+    width: 1px;
+    flex: 1;
+    background: var(--border);
+    margin-top: 6px;
+  }
+
+  .exp-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .exp-org {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent2);
+    margin-bottom: 0.4rem;
+  }
+
+  .exp-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--faint);
+    margin-bottom: 1rem;
+  }
+
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .exp-bullets li {
+    font-size: 0.9rem;
+    color: var(--muted);
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .exp-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.75rem;
+    top: 2px;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1.5px solid var(--border);
+  }
+
+  .project-card {
+    background: var(--card);
+    padding: 2rem;
+    transition: background 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .project-card:hover { background: #1c1c1c; }
+  .project-card:hover::after { transform: scaleX(1); }
+
+  .project-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    transition: color 0.25s;
+  }
+
+  .project-card:hover .project-number { color: rgba(200,240,74,0.12); }
+
+  .project-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-tech {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--accent2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 4rem 0;
+    text-align: center;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.2s;
+  }
+
+  .footer-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--faint);
+    letter-spacing: 0.1em;
+  }
+
+  .footer-cta {
+    margin-top: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid var(--accent);
+    padding: 0.7rem 1.5rem;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .footer-cta:hover {
+    background: var(--accent);
+    color: #1a0f0d;
+  }
+
+  /* STAT BAR */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1.5px solid var(--border);
+    margin-bottom: 2.5rem;
+  }
+
+  .stat-item {
+    background: var(--card);
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* CURSOR ACCENT */
+  .accent-cursor { color: var(--accent); }
+  .cursor-blink {
+    display: inline-block;
+    width: 2px; height: 1em;
+    background: var(--accent);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); }
+
+  @media (max-width: 600px) {
+    .exp-card { grid-template-columns: 1fr; }
+    .exp-timeline { display: none; }
+    header { padding: 4rem 0 3rem; }
+  }
+</style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Portfolio</h1>
-        <nav>
-            <a href="#about">About</a>
-            <a href="#experience">Experience</a>
-            <a href="#work">Work</a>
-            <a href="#education">Education</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
-    <div class="container">
-        <section id="about" class="section">
-            <h2>About Me</h2>
-            <p>Hello! I'm Archit Ranjan, an individual with extensive experience in youth engagement through volunteering at multiple organizations. Proven ability to communicate effectively and develop strong interpersonal relationships. Additionally, I have contributed to various open-source projects and authored insightful articles on blockchain technology, demonstrating a commitment to collaborative development and continuous learning.</p>
-        </section>
-        <section class="social-profiles section">
-            <h2>Connect With Me</h2>
-            <a href="https://linkedin.com/in/architr4" target="_blank"><i>🔗</i>LinkedIn</a>
-            <a href="https://github.com/architr4" target="_blank"><i>💻</i>GitHub</a>
-            <a href="https://twitter.com/architr4" target="_blank"><i>🐦</i>Twitter</a>
-        </section>
-        <section id="experience" class="section">
-            <h2>Experience</h2>
-            <div class="work-item">
-                <h3>Taekwondo Instructor Volunteer</h3>
-                <p><strong>Organization:</strong> Morrisville Taekwondo America | Morrisville, NC</p>
-                <p><strong>Dates:</strong> February 2024 – June 2024</p>
-                <p>Instructed students in martial arts techniques and principles. Provided hands-on experience in sparring and applications for children.</p>
-            </div>
-            <div class="work-item">
-                <h3>Chess Club Volunteer (Self-led)</h3>
-                <p><strong>Organization:</strong> YMCA of the Triangle | Cary, NC</p>
-                <p><strong>Dates:</strong> February 2024 – June 2024</p>
-                <p>Organized weekly sessions to teach and play chess with youth. Offered actionable advice to help children improve their chess skills.</p>
-            </div>
-            <div class="work-item">
-                <h3>Kids Zone Volunteer (Supervised)</h3>
-                <p><strong>Organization:</strong> YMCA of the Triangle | Cary, NC</p>
-<p><strong>Dates:</strong> February 2024 – June 2024</p>
-                <p>Collaborated with team members to supervise children in the Kids Zone. Volunteered on Mondays, Wednesdays, and Thursdays.</p>
-            </div>
-        </section>
-        <section id="work" class="section">
-            <h2>Open-Source Contributions</h2>
-            <div class="work-item">
-               <h3>Summer of Protocols 2024 <a href="https://youtu.be/M1XoOvWnXEA">Video Presentation</a></h3>
-            </div>
-            <h2>Publications</h2>
-       
-<div class="work-item">
-    <h3><a href="https://etherworld.co/2021/08/05/all-you-need-to-know-about-ethereums-london-upgrade/">All You Need to Know About Ethereum's London Upgrade</a></h3>
-    <p><strong>Published:</strong> EtherWorld | August 5, 2021</p>
-    <p>Detailed the key highlights, upgrade schedule, client synchronization status, ETH fee burning, and Ethereum Improvement Proposals (EIPs) included in the London upgrade.</p>
-</div>
-<div class="work-item">
-    <h3><a href="https://etherworld.co/2021/12/09/insight-of-ethereum-arrow-glacier-network-upgrade/">Insight of Ethereum Arrow Glacier Network Upgrade</a></h3>
-    <p><strong>Published:</strong> EtherWorld | December 9, 2021</p>
-    <p>Provided an overview of the Arrow Glacier upgrade, including the EIP involved, calculations related to the difficulty bomb, and essential information for the community.</p>
-</div>
-<div class="work-item">
-    <h3><a href="https://etherworld.co/2017/03/06/russia-welcomes-blockchain-technology-for-economic-growth">Russia Welcomes Blockchain Technology for Economic Growth</a></h3>
-    <p><strong>Published:</strong> EtherWorld | March 6, 2017</p>
-    <p>Gave a summary of how Russia introduced blockchain technology into their economy.</p>
-</div>
-    <div class="work-item">
-    <h3><a href="https://etherworld.co/2023/06/28/azuki-elemental-nft-collection-the-rise-and-plunge-in-value-in-less-than-24-hours/">Azuki & Elemental NFT Collection: The Rise and Plunge in Value, in Less Than 24 Hours</a></h3>
-    <p><strong>Published:</strong> EtherWorld | June 28, 2023</p>
-    <p>Analyzed the rapid sell-out and subsequent value decline of the Azuki & Elemental NFT project, providing insights into market dynamics and lessons for investors.</p>
-</div>
-        </section>
-        <section id="education" class="section">
-            <h2>Education</h2>
-            <p><strong>Institution:</strong> Green Hope High School | NC, USA</p>
-            <p><strong>Dates:</strong> September 2022 – June 2026</p>
-        </section>
-        <section id="contact" class="section">
-            <h2>Contact Me</h2>
-            <p>Email: <a href="mailto:ranjanarchit19@gmail.com">ranjanarchit19@gmail.com</a></p>
-        </section>
+<div class="grid-bg"></div>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-eyebrow">// Resume · 2025</div>
+    <h1 class="header-name">Archit<br><span>Ranjan</span></h1>
+    <p class="header-tagline">
+      Highly motivated high school senior with a rigorous academic foundation and proven capability in technical communication and open-source contribution. Seeking a challenging Technical Internship.
+    </p>
+    <div class="header-meta">
+      <div class="meta-item"><span class="meta-dot"></span>(919) 501-1506</div>
+      <div class="meta-item"><span class="meta-dot"></span><a href="mailto:ranjanarchit19@gmail.com">ranjanarchit19@gmail.com</a></div>
+      <div class="meta-item"><span class="meta-dot"></span>Cary, NC</div>
+      <div class="meta-item"><span class="meta-dot"></span><a href="https://github.com/architr4" target="_blank">github.com/architr4</a></div>
     </div>
+  </header>
+
+  <!-- STATS -->
+  <section id="stats">
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-number">3.7</div>
+        <div class="stat-label">GPA</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">13</div>
+        <div class="stat-label">AP Courses</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">30+</div>
+        <div class="stat-label">Protocol Meetings Documented</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">2+</div>
+        <div class="stat-label">Years Open Source</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">01 — Technical Skills</div>
+    <div class="skills-grid">
+      <div class="skill-block">
+        <div class="skill-category">Languages</div>
+        <div>
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">HTML5</span>
+          <span class="skill-tag">CSS3</span>
+          <span class="skill-tag">JavaScript</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-category">Concepts</div>
+        <div>
+          <span class="skill-tag">OOP</span>
+          <span class="skill-tag">Data Structures</span>
+          <span class="skill-tag">Algorithms</span>
+          <span class="skill-tag">Blockchain</span>
+          <span class="skill-tag">Ethereum / EIPs</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-category">Tools & Platforms</div>
+        <div>
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">GitHub</span>
+          <span class="skill-tag">Linux / CLI</span>
+          <span class="skill-tag">VS Code</span>
+          <span class="skill-tag">BlueJ</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-category">Soft Skills</div>
+        <div>
+          <span class="skill-tag">Technical Documentation</span>
+          <span class="skill-tag">Synthesis</span>
+          <span class="skill-tag">Open Source Collaboration</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-label">02 — Education</div>
+    <div class="edu-card">
+      <div class="edu-school">Green Hope High School</div>
+      <div class="edu-meta">
+        Cary, NC &nbsp;·&nbsp; <span>Expected Graduation: June 2026</span> &nbsp;·&nbsp; GPA: 3.6
+      </div>
+      <div class="edu-items">
+        <div class="edu-item">
+          <div class="edu-item-label">Academic Rigor</div>
+          <div class="edu-item-value">13 total AP courses (8 completed, 5 planned)</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-item-label">CS Coursework</div>
+          <div class="edu-item-value">AP CS A · AP CS Principles · Engineering I & II</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-item-label">STEM Coursework</div>
+          <div class="edu-item-value">AP Calculus AB · AP Physics 1</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-label">03 — Open Source Experience</div>
+    <div class="exp-card">
+      <div class="exp-timeline">
+        <div class="exp-dot"></div>
+        <div class="exp-line"></div>
+      </div>
+      <div>
+        <div class="exp-role">Technical Protocol Documentation Contributor</div>
+        <div class="exp-org">Ethereum Community · via GitHub</div>
+        <div class="exp-date">2023 – Present</div>
+        <ul class="exp-bullets">
+          <li>Provided comprehensive documentation for approximately 30 core Ethereum protocol meetings, including All Core Devs and Cat Herders sessions.</li>
+          <li>Demonstrated exceptional ability to synthesize complex, high-level decentralized technology discussions into clear, accurate, and publicly accessible records.</li>
+          <li>Maintained consistent contributions to a global open-source protocol used by millions of developers and stakeholders worldwide.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">04 — Selected Projects</div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-number">01</div>
+        <div class="project-name">Dungeon Crawler</div>
+        <div class="project-tech">Java · BlueJ</div>
+        <div class="project-desc">
+          A fully playable dungeon crawler game built as a CS A final project. Demonstrates object-oriented design, game logic, and interactive mechanics in Java.
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-number">02</div>
+        <div class="project-name">Incarcerated Demographics Algorithm</div>
+        <div class="project-tech">JavaScript</div>
+        <div class="project-desc">
+          An application that visualizes demographic data on incarcerated populations in the US, displaying counts by state using real data and custom algorithmic processing.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-text">// Archit Ranjan · Cary, NC · 2025</div>
+    <br>
+    <a href="mailto:ranjanarchit19@gmail.com" class="footer-cta">
+      Get in touch →
+    </a>
+  </footer>
+
+</div>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('section').forEach(s => observer.observe(s));
+</script>
 </body>
 </html>
