@@ -12,653 +12,145 @@
     --card: #1a1a1a;
     --border: #2a2a2a;
     --accent: #FFC2B8;
-    --accent2: #FFC2B8;
-    --text: #e8e8e8;
+    --text: #bcecf5;
     --muted: #888;
     --faint: #444;
   }
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-
-  /* NOISE OVERLAY */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 1000;
-    opacity: 0.5;
-  }
-
-  /* GRID LINES */
-  .grid-bg {
-    position: fixed;
-    inset: 0;
-    background-image: 
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* LAYOUT */
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    position: relative;
-    z-index: 1;
-  }
-
-  /* HEADER */
-  header {
-    padding: 6rem 0 4rem;
-    position: relative;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .header-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.1s;
-  }
-
-  .header-name {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3.5rem, 9vw, 7rem);
-    font-weight: 900;
-    line-height: 0.95;
-    letter-spacing: -0.02em;
-    color: var(--text);
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards 0.2s;
-  }
-
-  .header-name span {
-    color: var(--accent);
-    font-style: italic;
-    font-weight: 700;
-  }
-
-  .header-tagline {
-    margin-top: 1.5rem;
-    font-size: 1rem;
-    color: var(--muted);
-    max-width: 580px;
-    line-height: 1.7;
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards 0.35s;
-  }
-
-  .header-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    margin-top: 2rem;
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards 0.5s;
-  }
-
-  .meta-item {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.78rem;
-    color: var(--muted);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .meta-item a {
-    color: var(--accent2);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.2s;
-  }
-
-  .meta-item a:hover { border-color: var(--accent2); }
-
-  .meta-dot {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: var(--accent);
-    flex-shrink: 0;
-  }
-
-  /* SECTION */
-  section {
-    padding: 4rem 0;
-    border-bottom: 1px solid var(--border);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-
-  section.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .section-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 2.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 3vw, 2.5rem);
-    font-weight: 700;
-    margin-bottom: 2rem;
-    line-height: 1.2;
-  }
-
-  /* SKILLS */
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5px;
-    border: 1.5px solid var(--border);
-    background: var(--border);
-  }
-
-  .skill-block {
-    background: var(--card);
-    padding: 1.5rem 2rem;
-    transition: background 0.2s;
-  }
-
+  body { background: var(--bg); color: var(--text); font-family: "DM Sans", sans-serif; font-weight: 300; line-height: 1.6; overflow-x: hidden; }
+  body::before { content: ""; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1000; opacity: 0.5; }
+  .grid-bg { position: fixed; inset: 0; background-image: linear-gradient(rgba(255,194,184,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,194,184,0.07) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+  header { padding: 6rem 0 4rem; border-bottom: 1px solid var(--border); }
+  .header-eyebrow { font-family: "DM Mono", monospace; font-size: 0.72rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; opacity: 0; animation: fadeUp 0.6s ease forwards 0.1s; }
+  .header-name { font-family: "Playfair Display", serif; font-size: clamp(3.5rem, 9vw, 7rem); font-weight: 900; line-height: 0.95; letter-spacing: -0.02em; color: var(--text); opacity: 0; animation: fadeUp 0.7s ease forwards 0.2s; }
+  .header-name span { color: var(--accent); font-style: italic; font-weight: 700; }
+  .header-tagline { margin-top: 1.5rem; font-size: 1rem; color: var(--muted); max-width: 580px; line-height: 1.7; opacity: 0; animation: fadeUp 0.7s ease forwards 0.35s; }
+  .header-meta { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 2rem; opacity: 0; animation: fadeUp 0.7s ease forwards 0.5s; }
+  .meta-item { font-family: "DM Mono", monospace; font-size: 0.78rem; color: var(--muted); display: flex; align-items: center; gap: 0.5rem; }
+  .meta-item a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+  .meta-item a:hover { border-color: var(--accent); }
+  .meta-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+  section { padding: 4rem 0; border-bottom: 1px solid var(--border); opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; position: relative; z-index: 1; }
+  section.visible { opacity: 1; transform: translateY(0); }
+  .section-label { font-family: "DM Mono", monospace; font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 2.5rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--border); border: 1.5px solid var(--border); margin-bottom: 2.5rem; }
+  .stat-item { background: var(--card); padding: 1.5rem; text-align: center; }
+  .stat-number { font-family: "Playfair Display", serif; font-size: 2.5rem; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 0.3rem; }
+  .stat-label { font-family: "DM Mono", monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--faint); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5px; border: 1.5px solid var(--border); background: var(--border); overflow: hidden; }
+  .skill-block { background: var(--card); padding: 1.5rem 2rem; transition: background 0.2s; }
   .skill-block:hover { background: #1e1e1e; }
-
-  .skill-category {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.75rem;
-  }
-
-  .skill-list {
-    font-size: 0.92rem;
-    color: var(--muted);
-    line-height: 1.8;
-  }
-
-  .skill-tag {
-    display: inline-block;
-    background: rgba(200, 240, 74, 0.06);
-    border: 1px solid rgba(200, 240, 74, 0.15);
-    color: var(--text);
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    padding: 0.2rem 0.6rem;
-    margin: 0.2rem 0.2rem 0.2rem 0;
-    border-radius: 2px;
-    transition: background 0.2s, border-color 0.2s;
-  }
-
-  .skill-tag:hover {
-    background: rgba(200, 240, 74, 0.12);
-    border-color: rgba(200, 240, 74, 0.35);
-  }
-
-  /* EDUCATION */
-  .edu-card {
-    border: 1.5px solid var(--border);
-    padding: 2rem 2.5rem;
-    position: relative;
-    background: var(--card);
-  }
-
-  .edu-card::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 3px;
-    background: var(--accent);
-  }
-
-  .edu-school {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 0.3rem;
-  }
-
-  .edu-meta {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--muted);
-    margin-bottom: 1.5rem;
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-  }
-
-  .edu-meta span { color: var(--accent2); }
-
-  .edu-items {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1rem;
-    margin-top: 1.5rem;
-  }
-
-  .edu-item {
-    padding: 1rem 1.2rem;
-    border: 1px solid var(--border);
-    background: var(--surface);
-  }
-
-  .edu-item-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--faint);
-    margin-bottom: 0.4rem;
-  }
-
-  .edu-item-value {
-    font-size: 0.9rem;
-    color: var(--text);
-  }
-
-  /* EXPERIENCE */
-  .exp-card {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0 2rem;
-    padding: 2rem 0;
-  }
-
-  .exp-card + .exp-card {
-    border-top: 1px solid var(--border);
-  }
-
-  .exp-timeline {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-  }
-
-  .exp-dot {
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: var(--accent);
-    flex-shrink: 0;
-    margin-top: 5px;
-  }
-
-  .exp-line {
-    width: 1px;
-    flex: 1;
-    background: var(--border);
-    margin-top: 6px;
-  }
-
-  .exp-role {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 0.25rem;
-  }
-
-  .exp-org {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--accent2);
-    margin-bottom: 0.4rem;
-  }
-
-  .exp-date {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--faint);
-    margin-bottom: 1rem;
-  }
-
-  .exp-bullets {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-
-  .exp-bullets li {
-    font-size: 0.9rem;
-    color: var(--muted);
-    padding-left: 1.2rem;
-    position: relative;
-    line-height: 1.6;
-  }
-
-  .exp-bullets li::before {
-    content: '→';
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-    font-size: 0.75rem;
-    top: 2px;
-  }
-
-  /* PROJECTS */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1px;
-    background: var(--border);
-    border: 1.5px solid var(--border);
-  }
-
-  .project-card {
-    background: var(--card);
-    padding: 2rem;
-    transition: background 0.25s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .project-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
-  }
-
+  .skill-category { font-family: "DM Mono", monospace; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+  .skill-tag { display: inline-block; background: rgba(255,194,184,0.06); border: 1px solid rgba(255,194,184,0.2); color: var(--text); font-family: "DM Mono", monospace; font-size: 0.72rem; padding: 0.2rem 0.6rem; margin: 0.2rem 0.2rem 0.2rem 0; border-radius: 2px; transition: background 0.2s, border-color 0.2s; }
+  .skill-tag:hover { background: rgba(255,194,184,0.14); border-color: rgba(255,194,184,0.4); }
+  .edu-card { border: 1.5px solid var(--border); padding: 2rem 2.5rem; position: relative; background: var(--card); }
+  .edu-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); }
+  .edu-school { font-family: "Playfair Display", serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .edu-meta { font-family: "DM Mono", monospace; font-size: 0.75rem; color: var(--muted); margin-bottom: 1.5rem; display: flex; gap: 2rem; flex-wrap: wrap; }
+  .edu-meta span { color: var(--accent); }
+  .edu-items { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+  .edu-item { padding: 1rem 1.2rem; border: 1px solid var(--border); background: var(--surface); }
+  .edu-item-label { font-family: "DM Mono", monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--faint); margin-bottom: 0.4rem; }
+  .edu-item-value { font-size: 0.9rem; color: var(--text); }
+  .exp-card { display: grid; grid-template-columns: auto 1fr; gap: 0 2rem; padding: 2rem 0; }
+  .exp-timeline { display: flex; flex-direction: column; align-items: center; }
+  .exp-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 5px; }
+  .exp-line { width: 1px; flex: 1; background: var(--border); margin-top: 6px; }
+  .exp-role { font-family: "Playfair Display", serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .exp-org { font-family: "DM Mono", monospace; font-size: 0.75rem; color: var(--accent); margin-bottom: 0.4rem; }
+  .exp-date { font-family: "DM Mono", monospace; font-size: 0.7rem; color: var(--faint); margin-bottom: 1rem; }
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .exp-bullets li { font-size: 0.9rem; color: var(--muted); padding-left: 1.4rem; position: relative; line-height: 1.6; }
+  .exp-bullets li::before { content: "\2192"; position: absolute; left: 0; color: var(--accent); font-size: 0.85rem; top: 1px; }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1px; background: var(--border); border: 1.5px solid var(--border); }
+  .project-card { background: var(--card); padding: 2rem; transition: background 0.25s; position: relative; overflow: hidden; cursor: default; }
+  .project-card.clickable { cursor: pointer; }
+  .project-card::after { content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
   .project-card:hover { background: #1c1c1c; }
   .project-card:hover::after { transform: scaleX(1); }
-
-  .project-number {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.5rem;
-    font-weight: 900;
-    color: var(--border);
-    line-height: 1;
-    margin-bottom: 0.5rem;
-    transition: color 0.25s;
-  }
-
-  .project-card:hover .project-number { color: rgba(200,240,74,0.12); }
-
-  .project-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-  }
-
-  .project-tech {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
-    color: var(--accent2);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 0.75rem;
-  }
-
-  .project-desc {
-    font-size: 0.88rem;
-    color: var(--muted);
-    line-height: 1.65;
-  }
-
-  /* FOOTER */
-  footer {
-    padding: 4rem 0;
-    text-align: center;
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards 0.2s;
-  }
-
-  .footer-text {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--faint);
-    letter-spacing: 0.1em;
-  }
-
-  .footer-cta {
-    margin-top: 1.5rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.8rem;
-    color: var(--accent);
-    text-decoration: none;
-    border: 1px solid var(--accent);
-    padding: 0.7rem 1.5rem;
-    transition: background 0.2s, color 0.2s;
-  }
-
-  .footer-cta:hover {
-    background: var(--accent);
-    color: #1a0f0d;
-  }
-
-  /* STAT BAR */
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1px;
-    background: var(--border);
-    border: 1.5px solid var(--border);
-    margin-bottom: 2.5rem;
-  }
-
-  .stat-item {
-    background: var(--card);
-    padding: 1.5rem;
-    text-align: center;
-  }
-
-  .stat-number {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: var(--accent);
-    line-height: 1;
-    margin-bottom: 0.3rem;
-  }
-
-  .stat-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--faint);
-  }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* CURSOR ACCENT */
-  .accent-cursor { color: var(--accent); }
-  .cursor-blink {
-    display: inline-block;
-    width: 2px; height: 1em;
-    background: var(--accent);
-    margin-left: 2px;
-    vertical-align: text-bottom;
-    animation: blink 1s step-end infinite;
-  }
-  @keyframes blink { 50% { opacity: 0; } }
-
-  /* SCROLLBAR */
+  .project-number { font-family: "Playfair Display", serif; font-size: 3.5rem; font-weight: 900; color: var(--border); line-height: 1; margin-bottom: 0.5rem; transition: color 0.25s; }
+  .project-card:hover .project-number { color: rgba(255,194,184,0.14); }
+  .project-name { font-family: "Playfair Display", serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .project-tech { font-family: "DM Mono", monospace; font-size: 0.68rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem; }
+  .project-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+  .play-badge { margin-top: 1rem; font-family: "DM Mono", monospace; font-size: 0.72rem; color: var(--accent); border: 1px solid var(--accent); display: inline-block; padding: 0.3rem 0.9rem; border-radius: 2px; transition: background 0.2s, color 0.2s; }
+  .project-card.clickable:hover .play-badge { background: var(--accent); color: #1a0f0d; }
+  .game-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999; align-items: center; justify-content: center; flex-direction: column; gap: 1rem; }
+  .game-modal.active { display: flex; }
+  .game-modal-header { display: flex; align-items: center; justify-content: space-between; width: min(760px, 95vw); }
+  .game-modal-title { font-family: "Playfair Display", serif; font-size: 1.2rem; color: var(--accent); }
+  .game-close-btn { background: none; border: 1px solid var(--accent); color: var(--accent); font-family: "DM Mono", monospace; font-size: 0.8rem; padding: 0.4rem 1rem; cursor: pointer; border-radius: 2px; transition: background 0.2s, color 0.2s; }
+  .game-close-btn:hover { background: var(--accent); color: #1a0f0d; }
+  .game-frame { width: min(760px, 95vw); height: 85vh; border: 1.5px solid var(--border); border-radius: 4px; background: #1a1610; }
+  footer { padding: 4rem 0; text-align: center; }
+  .footer-text { font-family: "DM Mono", monospace; font-size: 0.72rem; color: var(--faint); letter-spacing: 0.1em; }
+  .footer-cta { margin-top: 1.5rem; display: inline-flex; align-items: center; gap: 0.75rem; font-family: "DM Mono", monospace; font-size: 0.8rem; color: var(--accent); text-decoration: none; border: 1px solid var(--accent); padding: 0.7rem 1.5rem; transition: background 0.2s, color 0.2s; }
+  .footer-cta:hover { background: var(--accent); color: #1a0f0d; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); }
-
-  @media (max-width: 600px) {
-    .exp-card { grid-template-columns: 1fr; }
-    .exp-timeline { display: none; }
-    header { padding: 4rem 0 3rem; }
-  }
+  @media (max-width: 600px) { .exp-card { grid-template-columns: 1fr; } .exp-timeline { display: none; } header { padding: 4rem 0 3rem; } }
 </style>
 </head>
 <body>
 <div class="grid-bg"></div>
-
 <div class="container">
 
-  <!-- HEADER -->
   <header>
-    <div class="header-eyebrow">// Resume · 2025</div>
+    <div class="header-eyebrow">Resume &middot; 2025</div>
     <h1 class="header-name">Archit<br><span>Ranjan</span></h1>
-    <p class="header-tagline">
-      Highly motivated high school senior with a rigorous academic foundation and proven capability in technical communication and open-source contribution. Seeking a challenging Technical Internship.
-    </p>
+    <p class="header-tagline">Highly motivated high school senior with a rigorous academic foundation and proven capability in technical communication and open-source contribution. Seeking a challenging Technical Internship.</p>
     <div class="header-meta">
       <div class="meta-item"><span class="meta-dot"></span>(919) 501-1506</div>
-      <div class="meta-item"><span class="meta-dot"></span><a href="mailto:ranjanarchit19@gmail.com">ranjanarchit19@gmail.com</a></div>
+      <div class="meta-item"><span class="meta-dot"></span><a href="mailto:ranjanarchit19&#64;gmail.com">ranjanarchit19&#64;gmail.com</a></div>
       <div class="meta-item"><span class="meta-dot"></span>Cary, NC</div>
       <div class="meta-item"><span class="meta-dot"></span><a href="https://github.com/architr4" target="_blank">github.com/architr4</a></div>
     </div>
   </header>
 
-  <!-- STATS -->
   <section id="stats">
     <div class="stats-row">
-      <div class="stat-item">
-        <div class="stat-number">3.7</div>
-        <div class="stat-label">GPA</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">13</div>
-        <div class="stat-label">AP Courses</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">30+</div>
-        <div class="stat-label">Protocol Meetings Documented</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">2+</div>
-        <div class="stat-label">Years Open Source</div>
-      </div>
+      <div class="stat-item"><div class="stat-number">3.7</div><div class="stat-label">GPA</div></div>
+      <div class="stat-item"><div class="stat-number">13</div><div class="stat-label">AP Courses</div></div>
+      <div class="stat-item"><div class="stat-number">2+</div><div class="stat-label">Years Open Source</div></div>
     </div>
   </section>
 
-  <!-- SKILLS -->
   <section id="skills">
-    <div class="section-label">01 — Technical Skills</div>
+    <div class="section-label">01 &mdash; Technical Skills</div>
     <div class="skills-grid">
-      <div class="skill-block">
-        <div class="skill-category">Languages</div>
-        <div>
-          <span class="skill-tag">Java</span>
-          <span class="skill-tag">HTML5</span>
-          <span class="skill-tag">CSS3</span>
-          <span class="skill-tag">JavaScript</span>
-        </div>
-      </div>
-      <div class="skill-block">
-        <div class="skill-category">Concepts</div>
-        <div>
-          <span class="skill-tag">OOP</span>
-          <span class="skill-tag">Data Structures</span>
-          <span class="skill-tag">Algorithms</span>
-          <span class="skill-tag">Blockchain</span>
-          <span class="skill-tag">Ethereum / EIPs</span>
-        </div>
-      </div>
-      <div class="skill-block">
-        <div class="skill-category">Tools & Platforms</div>
-        <div>
-          <span class="skill-tag">Git</span>
-          <span class="skill-tag">GitHub</span>
-          <span class="skill-tag">Linux / CLI</span>
-          <span class="skill-tag">VS Code</span>
-          <span class="skill-tag">BlueJ</span>
-        </div>
-      </div>
-      <div class="skill-block">
-        <div class="skill-category">Soft Skills</div>
-        <div>
-          <span class="skill-tag">Technical Documentation</span>
-          <span class="skill-tag">Synthesis</span>
-          <span class="skill-tag">Open Source Collaboration</span>
-        </div>
-      </div>
+      <div class="skill-block"><div class="skill-category">Languages</div><div><span class="skill-tag">Java</span><span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span><span class="skill-tag">JavaScript</span></div></div>
+      <div class="skill-block"><div class="skill-category">Concepts</div><div><span class="skill-tag">OOP</span><span class="skill-tag">Data Structures</span><span class="skill-tag">Algorithms</span><span class="skill-tag">Blockchain</span><span class="skill-tag">Ethereum / EIPs</span></div></div>
+      <div class="skill-block"><div class="skill-category">Tools &amp; Platforms</div><div><span class="skill-tag">Git</span><span class="skill-tag">GitHub</span><span class="skill-tag">Linux / CLI</span><span class="skill-tag">VS Code</span><span class="skill-tag">BlueJ</span></div></div>
+      <div class="skill-block"><div class="skill-category">Soft Skills</div><div><span class="skill-tag">Technical Documentation</span><span class="skill-tag">Synthesis</span><span class="skill-tag">Open Source Collaboration</span></div></div>
     </div>
   </section>
 
-  <!-- EDUCATION -->
   <section id="education">
-    <div class="section-label">02 — Education</div>
+    <div class="section-label">02 &mdash; Education</div>
     <div class="edu-card">
       <div class="edu-school">Green Hope High School</div>
-      <div class="edu-meta">
-        Cary, NC &nbsp;·&nbsp; <span>Expected Graduation: June 2026</span> &nbsp;·&nbsp; GPA: 3.6
-      </div>
+      <div class="edu-meta">Cary, NC &nbsp;&middot;&nbsp; <span>Expected Graduation: June 2026</span> &nbsp;&middot;&nbsp; GPA: 3.6</div>
       <div class="edu-items">
-        <div class="edu-item">
-          <div class="edu-item-label">Academic Rigor</div>
-          <div class="edu-item-value">13 total AP courses (8 completed, 5 planned)</div>
-        </div>
-        <div class="edu-item">
-          <div class="edu-item-label">CS Coursework</div>
-          <div class="edu-item-value">AP CS A · AP CS Principles · Engineering I & II</div>
-        </div>
-        <div class="edu-item">
-          <div class="edu-item-label">STEM Coursework</div>
-          <div class="edu-item-value">AP Calculus AB · AP Physics 1</div>
-        </div>
+        <div class="edu-item"><div class="edu-item-label">Academic Rigor</div><div class="edu-item-value">13 total AP courses (8 completed, 5 planned)</div></div>
+        <div class="edu-item"><div class="edu-item-label">CS Coursework</div><div class="edu-item-value">AP CS A &middot; AP CS Principles &middot; Engineering I &amp; II</div></div>
+        <div class="edu-item"><div class="edu-item-label">STEM Coursework</div><div class="edu-item-value">AP Calculus AB &middot; AP Physics 1</div></div>
       </div>
     </div>
   </section>
 
-  <!-- EXPERIENCE -->
   <section id="experience">
-    <div class="section-label">03 — Open Source Experience</div>
+    <div class="section-label">03 &mdash; Open Source Experience</div>
     <div class="exp-card">
-      <div class="exp-timeline">
-        <div class="exp-dot"></div>
-        <div class="exp-line"></div>
-      </div>
+      <div class="exp-timeline"><div class="exp-dot"></div><div class="exp-line"></div></div>
       <div>
         <div class="exp-role">Technical Protocol Documentation Contributor</div>
-        <div class="exp-org">Ethereum Community · via GitHub</div>
-        <div class="exp-date">2023 – Present</div>
+        <div class="exp-org">Ethereum Community &middot; via GitHub</div>
+        <div class="exp-date">2023 &ndash; Present</div>
         <ul class="exp-bullets">
           <li>Provided comprehensive documentation for approximately 30 core Ethereum protocol meetings, including All Core Devs and Cat Herders sessions.</li>
           <li>Demonstrated exceptional ability to synthesize complex, high-level decentralized technology discussions into clear, accurate, and publicly accessible records.</li>
@@ -668,51 +160,283 @@
     </div>
   </section>
 
-  <!-- PROJECTS -->
   <section id="projects">
-    <div class="section-label">04 — Selected Projects</div>
+    <div class="section-label">04 &mdash; Selected Projects</div>
     <div class="projects-grid">
       <div class="project-card">
         <div class="project-number">01</div>
         <div class="project-name">Dungeon Crawler</div>
-        <div class="project-tech">Java · BlueJ</div>
-        <div class="project-desc">
-          A fully playable dungeon crawler game built as a CS A final project. Demonstrates object-oriented design, game logic, and interactive mechanics in Java.
-        </div>
+        <div class="project-tech">Java &middot; BlueJ</div>
+        <div class="project-desc">A fully playable dungeon crawler game built as a CS A final project. Demonstrates object-oriented design, game logic, and interactive mechanics in Java.</div>
       </div>
       <div class="project-card">
         <div class="project-number">02</div>
         <div class="project-name">Incarcerated Demographics Algorithm</div>
         <div class="project-tech">JavaScript</div>
-        <div class="project-desc">
-          An application that visualizes demographic data on incarcerated populations in the US, displaying counts by state using real data and custom algorithmic processing.
-        </div>
+        <div class="project-desc">An application that visualizes demographic data on incarcerated populations in the US, displaying counts by state using real data and custom algorithmic processing.</div>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <section id="games">
+    <div class="section-label">05 &mdash; Games</div>
+    <div class="projects-grid">
+      <div class="project-card clickable" onclick="openGame()">
+        <div class="project-number" style="font-size:2.8rem;">&#x1F409;</div>
+        <div class="project-name">Dragon&#39;s Keep</div>
+        <div class="project-tech">JavaScript &middot; Canvas &middot; Fantasy RPG</div>
+        <div class="project-desc">A real-time fantasy RPG with 3 stages, enemy AI, ability system, a shop, and boss battles. Built entirely in vanilla JS and Canvas.</div>
+        <div class="play-badge">&#x25B6; Play Now</div>
+      </div>
+    </div>
+  </section>
+
   <footer>
-    <div class="footer-text">// Archit Ranjan · Cary, NC · 2025</div>
+    <div class="footer-text">Archit Ranjan &middot; Cary, NC &middot; 2025</div>
     <br>
-    <a href="mailto:ranjanarchit19@gmail.com" class="footer-cta">
-      Get in touch →
-    </a>
+    <a href="mailto:ranjanarchit19&#64;gmail.com" class="footer-cta">Get in touch &rarr;</a>
   </footer>
 
 </div>
 
+<!-- GAME MODAL -->
+<div class="game-modal" id="game-modal">
+  <div class="game-modal-header">
+    <span class="game-modal-title">&#x2694; Dragon&#39;s Keep</span>
+    <button class="game-close-btn" onclick="closeGame()">&#x2715; Close</button>
+  </div>
+  <iframe class="game-frame" id="game-frame" frameborder="0" srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+<title>Dragon's Keep</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&amp;family=Crimson+Text:ital,wght@0,400;0,600;1,400&amp;display=swap');
+:root{--stone:#1a1610;--parchment:#f0e6c8;--gold:#d4a017;--gold2:#f5c842;--ember:#e84a1a;--magic2:#b48ef5;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--stone);color:var(--parchment);font-family:'Crimson Text',serif;display:flex;flex-direction:column;align-items:center;min-height:100vh;overflow-x:hidden;}
+#header{text-align:center;padding:9px 0 2px;letter-spacing:0.15em;}
+#header h1{font-family:'Cinzel',serif;font-size:1.75rem;color:var(--gold2);text-shadow:0 0 20px rgba(212,160,23,0.6);}
+#stage-badge{font-size:0.78rem;color:#b0a080;font-style:italic;}
+#game-container{display:flex;gap:14px;padding:8px;align-items:flex-start;}
+#canvas-wrap{position:relative;}
+canvas{display:block;border:3px solid var(--gold);box-shadow:0 0 30px rgba(212,160,23,0.3);image-rendering:pixelated;}
+#sidebar{width:220px;display:flex;flex-direction:column;gap:10px;}
+.panel{background:linear-gradient(135deg,#2a241c,#1e1a12);border:2px solid #4a3e28;border-radius:4px;padding:10px;box-shadow:inset 0 0 15px rgba(0,0,0,0.4);}
+.panel-title{font-family:'Cinzel',serif;font-size:0.72rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid #4a3e28;padding-bottom:5px;margin-bottom:7px;}
+.stat-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:0.88rem;}
+.stat-label{color:#a09070;width:38px;}
+.bar-bg{flex:1;height:9px;background:#1a1510;border-radius:5px;overflow:hidden;border:1px solid #3a3228;}
+.bar-fill{height:100%;border-radius:5px;transition:width 0.3s ease;}
+.hp-bar{background:linear-gradient(90deg,#8b1a1a,#e84040);}
+.mp-bar{background:linear-gradient(90deg,#3a1a6b,#9b5de5);}
+.xp-bar{background:linear-gradient(90deg,#1a4a1a,#40c040);}
+.stat-val{color:var(--parchment);font-size:0.78rem;width:38px;text-align:right;}
+#hero-name{font-family:'Cinzel',serif;font-size:1rem;color:var(--gold2);text-align:center;margin-bottom:3px;}
+#hero-class{text-align:center;font-style:italic;color:#a09070;font-size:0.82rem;margin-bottom:7px;}
+#log{height:140px;overflow-y:auto;font-size:0.8rem;line-height:1.5;padding-right:3px;}
+#log::-webkit-scrollbar{width:4px;}
+#log::-webkit-scrollbar-track{background:#1a1510;}
+#log::-webkit-scrollbar-thumb{background:#4a3e28;border-radius:2px;}
+.log-entry{color:#c8b880;margin-bottom:2px;}
+.log-entry.combat{color:#e84a1a;}.log-entry.magic{color:var(--magic2);}
+.log-entry.loot{color:var(--gold2);}.log-entry.heal{color:#40d040;}.log-entry.sys{color:#8080c0;font-style:italic;}
+#controls{font-size:0.75rem;color:#807060;line-height:1.75;}
+.key{display:inline-block;background:#3a3228;border:1px solid #5a4e38;border-radius:3px;padding:1px 4px;font-family:monospace;color:var(--parchment);font-size:0.72rem;}
+#abilities{display:flex;gap:7px;flex-wrap:wrap;}
+.ability-btn{background:linear-gradient(135deg,#2a1a3a,#1a1028);border:1px solid #7b5ea7;color:var(--magic2);font-family:'Cinzel',serif;font-size:0.68rem;padding:4px 7px;cursor:pointer;border-radius:3px;transition:all 0.2s;letter-spacing:0.05em;}
+.ability-btn:hover{background:#3a2a4a;box-shadow:0 0 8px rgba(180,142,245,0.4);}
+.ability-btn:disabled{opacity:0.4;cursor:not-allowed;}
+.ability-btn .cd{display:block;font-size:0.58rem;color:#907090;font-family:serif;}
+#overlay{display:none;position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.88);align-items:center;justify-content:center;flex-direction:column;text-align:center;gap:14px;padding:20px;z-index:10;}
+#overlay.active{display:flex;}
+#overlay h2{font-family:'Cinzel',serif;font-size:1.8rem;color:var(--gold2);text-shadow:0 0 20px var(--gold);}
+#overlay p{color:var(--parchment);font-size:0.95rem;line-height:1.6;}
+.ov-btn{background:linear-gradient(135deg,#4a3e10,#6a5a20);border:2px solid var(--gold);color:var(--gold2);font-family:'Cinzel',serif;padding:9px 22px;cursor:pointer;font-size:0.85rem;letter-spacing:0.1em;border-radius:4px;transition:all 0.2s;}
+.ov-btn:hover{background:linear-gradient(135deg,#6a5a20,#8a7a30);box-shadow:0 0 15px rgba(212,160,23,0.5);}
+#shop-overlay{display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:440px;max-height:90%;background:rgba(5,3,2,0.97);border:2px solid var(--gold);border-radius:8px;box-shadow:0 0 40px rgba(212,160,23,0.3);flex-direction:column;gap:9px;padding:16px 16px 14px;z-index:20;overflow-y:auto;}
+#shop-overlay.active{display:flex;}
+#shop-header{display:flex;align-items:center;width:100%;gap:8px;}
+#shop-overlay h2{font-family:'Cinzel',serif;font-size:1.4rem;color:var(--gold2);flex:1;text-align:center;}
+#shop-close{background:none;border:1px solid #5a4e28;border-radius:3px;color:#a09070;cursor:pointer;font-size:0.9rem;padding:2px 8px;font-family:'Cinzel',serif;transition:all 0.15s;}
+#shop-close:hover{border-color:var(--gold);color:var(--gold2);}
+.shopkeeper{font-size:0.82rem;color:#c0b090;font-style:italic;text-align:center;}
+#shop-gold-display{font-family:'Cinzel',serif;font-size:0.92rem;color:var(--gold2);}
+#shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;}
+.shop-item{background:linear-gradient(135deg,#2a241c,#1a1610);border:1px solid #5a4e28;border-radius:5px;padding:9px;cursor:pointer;transition:all 0.2s;}
+.shop-item:hover:not(.sold){border-color:var(--gold);box-shadow:0 0 10px rgba(212,160,23,0.3);}
+.shop-item.sold{opacity:0.38;cursor:not-allowed;}
+.item-name{font-family:'Cinzel',serif;font-size:0.74rem;color:var(--gold2);}
+.item-desc{font-size:0.68rem;color:#a09070;margin:3px 0;}
+.item-cost{font-size:0.76rem;color:var(--gold);}
+#shop-msg{font-size:0.78rem;color:#60d060;height:15px;font-style:italic;}
+#shop-hint{font-size:0.72rem;color:#605040;font-style:italic;}
+#upgrades-bar{width:100%;max-width:730px;padding:0 8px 10px;}
+#upgrades-panel{background:linear-gradient(135deg,#2a241c,#1e1a12);border:2px solid #4a3e28;border-radius:4px;padding:8px 12px;}
+#upgrades-header{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;}
+#upgrades-title{font-family:'Cinzel',serif;font-size:0.72rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;flex:1;}
+#upgrades-toggle{font-size:0.7rem;color:#807060;}
+#upgrades-none{font-size:0.78rem;color:#605040;font-style:italic;margin-top:6px;}
+#upgrades-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+.upgrade-badge{display:flex;align-items:center;gap:6px;background:linear-gradient(135deg,#1e1a10,#2a2418);border:1px solid #5a4e28;border-radius:4px;padding:5px 9px;font-size:0.78rem;position:relative;cursor:default;}
+.upgrade-icon{font-size:1rem;}
+.upgrade-name{font-family:'Cinzel',serif;font-size:0.7rem;color:var(--gold2);}
+#upgrades-list.hidden{display:none;}
+</style>
+</head>
+<body>
+<div id=&quot;header&quot;><h1>Dragon's Keep</h1><div id=&quot;stage-badge&quot;>Stage 1 - The Cursed Forest</div></div>
+<div id=&quot;game-container&quot;>
+  <div id=&quot;canvas-wrap&quot;>
+    <canvas id=&quot;gameCanvas&quot; width=&quot;480&quot; height=&quot;480&quot;></canvas>
+    <div id=&quot;overlay&quot;>
+      <h2 id=&quot;overlay-title&quot;>Dragon's Keep</h2>
+      <p id=&quot;overlay-msg&quot;>You are Aldric, a wandering warrior.<br>Three stages stand between you and legend.<br>Press V anytime to open the shop!</p>
+      <button class=&quot;ov-btn&quot; id=&quot;overlay-btn&quot;>Begin Quest</button>
+    </div>
+    <div id=&quot;shop-overlay&quot;>
+      <div id=&quot;shop-header&quot;><h2>Wanderer's Camp</h2><button id=&quot;shop-close&quot; onclick=&quot;closeShop()&quot;>X Close</button></div>
+      <div class=&quot;shopkeeper&quot; id=&quot;shopkeeper-text&quot;>&quot;Spend wisely, traveller.&quot;</div>
+      <div id=&quot;shop-gold-display&quot;>Gold: <span id=&quot;shop-gold-val&quot;>0</span>g</div>
+      <div id=&quot;shop-grid&quot;>
+        <div class=&quot;shop-item&quot; id=&quot;si-hppotion&quot; onclick=&quot;buyItem('hppotion')&quot;><div class=&quot;item-name&quot;>Health Potion</div><div class=&quot;item-desc&quot;>Restore 60 HP</div><div class=&quot;item-cost&quot;>20g</div></div>
+        <div class=&quot;shop-item&quot; id=&quot;si-mppotion&quot; onclick=&quot;buyItem('mppotion')&quot;><div class=&quot;item-name&quot;>Mana Potion</div><div class=&quot;item-desc&quot;>Restore full MP</div><div class=&quot;item-cost&quot;>15g</div></div>
+        <div class=&quot;shop-item&quot; id=&quot;si-sword&quot; onclick=&quot;buyItem('sword')&quot;><div class=&quot;item-name&quot;>Enchanted Blade</div><div class=&quot;item-desc&quot;>+8 Attack</div><div class=&quot;item-cost&quot;>35g</div></div>
+        <div class=&quot;shop-item&quot; id=&quot;si-armor&quot; onclick=&quot;buyItem('armor')&quot;><div class=&quot;item-name&quot;>Iron Vambraces</div><div class=&quot;item-desc&quot;>+5 Defense</div><div class=&quot;item-cost&quot;>30g</div></div>
+        <div class=&quot;shop-item&quot; id=&quot;si-ring&quot; onclick=&quot;buyItem('ring')&quot;><div class=&quot;item-name&quot;>Mage's Ring</div><div class=&quot;item-desc&quot;>+20 Max MP</div><div class=&quot;item-cost&quot;>25g</div></div>
+        <div class=&quot;shop-item&quot; id=&quot;si-lifestone&quot; onclick=&quot;buyItem('lifestone')&quot;><div class=&quot;item-name&quot;>Lifestone</div><div class=&quot;item-desc&quot;>+30 Max HP</div><div class=&quot;item-cost&quot;>40g</div></div>
+        <div class=&quot;shop-item&quot; id=&quot;si-elixir&quot; onclick=&quot;buyItem('elixir')&quot;><div class=&quot;item-name&quot;>Battle Elixir</div><div class=&quot;item-desc&quot;>+5 ATK +3 DEF</div><div class=&quot;item-cost&quot;>45g</div></div>
+        <div class=&quot;shop-item&quot; id=&quot;si-tome&quot; onclick=&quot;buyItem('tome')&quot;><div class=&quot;item-name&quot;>Arcane Tome</div><div class=&quot;item-desc&quot;>Fireball +20 dmg</div><div class=&quot;item-cost&quot;>50g</div></div>
+      </div>
+      <div id=&quot;shop-msg&quot;></div>
+      <div id=&quot;shop-hint&quot;>Press V or Esc to close</div>
+    </div>
+  </div>
+  <div id=&quot;sidebar&quot;>
+    <div class=&quot;panel&quot;>
+      <div id=&quot;hero-name&quot;>Aldric</div>
+      <div id=&quot;hero-class&quot;>Warrior - Level <span id=&quot;level&quot;>1</span></div>
+      <div class=&quot;stat-row&quot;><span class=&quot;stat-label&quot;>HP</span><div class=&quot;bar-bg&quot;><div class=&quot;bar-fill hp-bar&quot; id=&quot;hp-bar&quot; style=&quot;width:100%&quot;></div></div><span class=&quot;stat-val&quot; id=&quot;hp-val&quot;>100/100</span></div>
+      <div class=&quot;stat-row&quot;><span class=&quot;stat-label&quot;>MP</span><div class=&quot;bar-bg&quot;><div class=&quot;bar-fill mp-bar&quot; id=&quot;mp-bar&quot; style=&quot;width:100%&quot;></div></div><span class=&quot;stat-val&quot; id=&quot;mp-val&quot;>40/40</span></div>
+      <div class=&quot;stat-row&quot;><span class=&quot;stat-label&quot;>XP</span><div class=&quot;bar-bg&quot;><div class=&quot;bar-fill xp-bar&quot; id=&quot;xp-bar&quot; style=&quot;width:0%&quot;></div></div><span class=&quot;stat-val&quot; id=&quot;xp-val&quot;>0/50</span></div>
+      <div style=&quot;display:flex;gap:14px;margin-top:7px;font-size:0.78rem;color:#a09070;&quot;>
+        <span>ATK <b id=&quot;atk-val&quot; style=&quot;color:var(--parchment)&quot;>12</b></span>
+        <span>DEF <b id=&quot;def-val&quot; style=&quot;color:var(--parchment)&quot;>5</b></span>
+        <span>Gold <b id=&quot;gold-val&quot; style=&quot;color:var(--gold2)&quot;>0</b>g</span>
+      </div>
+    </div>
+    <div class=&quot;panel&quot;>
+      <div class=&quot;panel-title&quot;>Abilities</div>
+      <div id=&quot;abilities&quot;>
+        <button class=&quot;ability-btn&quot; id=&quot;btn-slash&quot; onclick=&quot;useAbility('slash')&quot;>Slash<span class=&quot;cd&quot; id=&quot;cd-slash&quot;>Ready</span></button>
+        <button class=&quot;ability-btn&quot; id=&quot;btn-fireball&quot; onclick=&quot;useAbility('fireball')&quot;>Fire<span class=&quot;cd&quot; id=&quot;cd-fireball&quot;>10MP</span></button>
+        <button class=&quot;ability-btn&quot; id=&quot;btn-heal&quot; onclick=&quot;useAbility('heal')&quot;>Heal<span class=&quot;cd&quot; id=&quot;cd-heal&quot;>15MP</span></button>
+        <button class=&quot;ability-btn&quot; id=&quot;btn-charge&quot; onclick=&quot;useAbility('charge')&quot;>Charge<span class=&quot;cd&quot; id=&quot;cd-charge&quot;>Ready</span></button>
+      </div>
+    </div>
+    <div class=&quot;panel&quot;><div class=&quot;panel-title&quot;>Battle Log</div><div id=&quot;log&quot;></div></div>
+    <div class=&quot;panel&quot; id=&quot;controls&quot;>
+      <div class=&quot;panel-title&quot;>Controls</div>
+      WASD / Arrows: Move | Space: Attack | 1-4: Abilities | V: Shop
+    </div>
+  </div>
+</div>
+<div id=&quot;upgrades-bar&quot;>
+  <div id=&quot;upgrades-panel&quot;>
+    <div id=&quot;upgrades-header&quot; onclick=&quot;toggleUpgrades()&quot;><span id=&quot;upgrades-title&quot;>Upgrades</span><span id=&quot;upgrades-toggle&quot;>hide</span></div>
+    <div id=&quot;upgrades-none&quot;>No upgrades yet - press V to open the shop!</div>
+    <div id=&quot;upgrades-list&quot; class=&quot;hidden&quot;></div>
+  </div>
+</div>
 <script>
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.1 });
+const canvas=document.getElementById('gameCanvas');
+const ctx=canvas.getContext('2d');
+const TILE=32,COLS=15,ROWS=15,PX=TILE*COLS,PY=TILE*ROWS;
+const T={WALL:0,FLOOR:1,GRASS:2,WATER:3,PATH:4,CHEST:5,EXIT:6};
+const MAP1=[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,2,2,2,2,2,0,0,0,2,2,2,2,2,0],[0,2,2,2,2,2,0,0,0,2,2,2,2,2,0],[0,2,2,1,1,4,4,4,4,4,1,2,2,2,0],[0,2,1,1,1,1,0,0,0,1,1,1,2,2,0],[0,2,1,1,1,1,0,3,0,1,1,1,2,2,0],[0,0,4,4,1,1,0,3,0,1,1,4,4,0,0],[0,2,1,1,1,1,0,3,0,1,1,1,2,2,0],[0,2,1,1,1,5,0,0,0,1,5,1,2,2,0],[0,2,1,1,1,1,1,1,1,1,1,1,2,2,0],[0,2,2,1,1,1,0,0,0,1,1,2,2,2,0],[0,2,2,2,2,2,0,0,0,2,2,2,2,2,0],[0,2,2,2,4,4,4,6,4,4,4,2,2,2,0],[0,2,2,2,2,2,0,0,0,2,2,2,2,2,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
+const MAP2=[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,1,5,1,1,1,3,3,3,1,1,1,5,1,0],[0,1,1,1,4,4,4,1,4,4,4,1,1,1,0],[0,1,1,1,1,1,3,3,3,1,1,1,1,1,0],[0,1,4,1,1,1,3,3,3,1,1,1,4,1,0],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,1,1,1,1,1,3,3,3,1,1,1,1,1,0],[0,1,1,1,5,1,3,3,3,1,5,1,1,1,0],[0,1,4,1,1,1,1,1,1,1,1,1,4,1,0],[0,1,1,1,1,1,3,3,3,1,1,1,1,1,0],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,1,1,1,4,4,4,6,4,4,4,1,1,1,0],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
+const MAP3=[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,1,1,1,1,0,1,1,1,0,1,1,1,1,0],[0,1,5,1,1,0,1,3,1,0,1,1,5,1,0],[0,1,1,1,4,4,4,1,4,4,4,1,1,1,0],[0,0,1,0,1,0,1,1,1,0,1,0,1,0,0],[0,1,1,1,1,1,1,3,1,1,1,1,1,1,0],[0,1,3,1,0,1,1,1,1,1,0,1,3,1,0],[0,1,1,1,1,1,4,4,4,1,1,1,1,1,0],[0,0,1,0,1,0,1,3,1,0,1,0,1,0,0],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,1,5,1,0,1,1,3,1,1,0,1,5,1,0],[0,1,1,1,4,4,4,1,4,4,4,1,1,1,0],[0,0,1,0,1,0,1,1,1,0,1,0,1,0,0],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
+function curMap(){return G.stage===1?MAP1:G.stage===2?MAP2:MAP3;}
+function tileAt(px,py){return curMap()[Math.floor(py/TILE)]?.[Math.floor(px/TILE)]??T.WALL;}
+function isWalkable(t){return t!==T.WALL&amp;&amp;t!==T.WATER;}
+const PAD=4;
+function canMoveTo(px,py){const hw=TILE/2-PAD,hh=TILE/2-PAD;const corners=[[px-hw,py-hh],[px+hw,py-hh],[px-hw,py+hh],[px+hw,py+hh]];for(const[cx,cy]of corners){if(!isWalkable(tileAt(cx,cy)))return false;}return true;}
+const mkE=(id,tx,ty,hp,atk,def,xp,gold,type,speed)=>({id,px:(tx+.5)*TILE,py:(ty+.5)*TILE,hp,maxHp:hp,atk,def,xp,gold,type,alive:true,speed:speed||60,atkCd:0,atkRate:1.2});
+const S1E=()=>[mkE(1,3,5,32,7,2,15,6,'goblin',55),mkE(2,11,4,32,7,2,15,6,'goblin',55),mkE(3,5,9,58,11,4,32,13,'orc',48),mkE(4,10,9,58,11,4,32,13,'orc',48),mkE(5,7,12,110,15,6,65,35,'troll',38)];
+const S2E=()=>[mkE(1,3,2,65,15,5,38,16,'orc',52),mkE(2,11,2,65,15,5,38,16,'orc',52),mkE(3,2,7,90,20,8,55,24,'troll',40),mkE(4,12,7,90,20,8,55,24,'troll',40),mkE(5,4,10,75,18,7,48,20,'wraith',65),mkE(6,10,10,75,18,7,48,20,'wraith',65),mkE(7,7,13,240,30,13,160,90,'dragon',32)];
+const S3E=()=>[mkE(1,2,1,90,22,8,60,25,'wraith',68),mkE(2,12,1,90,22,8,60,25,'wraith',68),mkE(3,1,5,110,25,10,70,30,'demon',58),mkE(4,13,5,110,25,10,70,30,'demon',58),mkE(5,2,10,100,24,9,65,28,'demon',58),mkE(6,12,10,100,24,9,65,28,'demon',58),mkE(7,5,7,130,28,12,80,35,'lich',50),mkE(8,9,7,130,28,12,80,35,'lich',50),mkE(9,7,13,360,42,18,250,120,'voidlord',28)];
+const S1C=()=>[{x:5,y:8,open:false,gold:20,heal:30},{x:10,y:8,open:false,gold:15,heal:0}];
+const S2C=()=>[{x:2,y:2,open:false,gold:25,heal:45},{x:12,y:2,open:false,gold:20,heal:0},{x:4,y:8,open:false,gold:30,heal:0},{x:10,y:8,open:false,gold:30,heal:50}];
+const S3C=()=>[{x:2,y:2,open:false,gold:35,heal:60},{x:12,y:2,open:false,gold:30,heal:0},{x:2,y:10,open:false,gold:40,heal:0},{x:12,y:10,open:false,gold:35,heal:70}];
+const SHOP={hppotion:{cost:20,sold:false},mppotion:{cost:15,sold:false},sword:{cost:35,sold:false},armor:{cost:30,sold:false},ring:{cost:25,sold:false},lifestone:{cost:40,sold:false},elixir:{cost:45,sold:false},tome:{cost:50,sold:false}};
+const UDEFS={hppotion:{icon:'HP',name:'Health Potion',desc:'Restored 60 HP'},mppotion:{icon:'MP',name:'Mana Potion',desc:'Restored full MP'},sword:{icon:'SW',name:'Enchanted Blade',desc:'+8 Attack'},armor:{icon:'AR',name:'Iron Vambraces',desc:'+5 Defense'},ring:{icon:'RI',name:&quot;Mage's Ring&quot;,desc:'+20 Max MP'},lifestone:{icon:'LS',name:'Lifestone',desc:'+30 MaxHP'},elixir:{icon:'EL',name:'Battle Elixir',desc:'+5 ATK +3 DEF'},tome:{icon:'TM',name:'Arcane Tome',desc:'Fireball upgraded'}};
+let acquiredUpgrades=[];
+function renderUpgrades(){const list=document.getElementById('upgrades-list'),none=document.getElementById('upgrades-none');list.innerHTML='';if(!acquiredUpgrades.length){none.style.display='block';list.classList.add('hidden');return;}none.style.display='none';list.classList.remove('hidden');for(const key of acquiredUpgrades){const d=UDEFS[key];if(!d)continue;const b=document.createElement('div');b.className='upgrade-badge';b.innerHTML='<span class=&quot;upgrade-icon&quot;>'+d.icon+'</span><span class=&quot;upgrade-name&quot;>'+d.name+'</span>';list.appendChild(b);}}
+function toggleUpgrades(){const list=document.getElementById('upgrades-list'),none=document.getElementById('upgrades-none'),toggle=document.getElementById('upgrades-toggle');if(!acquiredUpgrades.length){none.style.display=none.style.display==='none'?'block':'none';return;}list.classList.toggle('hidden');}
+let G={};
+function freshHero(){return{px:7.5*TILE,py:3.5*TILE,hp:100,maxHp:100,mp:40,maxMp:40,xp:0,xpNext:50,level:1,atk:12,def:5,gold:0,atkCd:0,atkRate:0.8};}
+function freshAb(){return{slash:{mpCost:0,cd:0,maxCd:1.2,dmg:[15,25]},fireball:{mpCost:10,cd:0,maxCd:3,dmg:[30,50]},heal:{mpCost:15,cd:0,maxCd:5,dmg:[0,0]},charge:{mpCost:0,cd:0,maxCd:8,dmg:[20,35]}};}
+const rand=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+const pdist=(a,b)=>Math.hypot(a.px-b.px,a.py-b.py);
+function log(msg,cls){const el=document.getElementById('log');const d=document.createElement('div');d.className='log-entry '+(cls||'');d.textContent=msg;el.insertBefore(d,el.firstChild);while(el.children.length>30)el.removeChild(el.lastChild);}
+function float(px,py,txt,col){G.floats.push({x:px,y:py,text:txt,color:col,t:0});}
+function updateHUD(){const h=G.hero;document.getElementById('hp-bar').style.width=(h.hp/h.maxHp*100)+'%';document.getElementById('mp-bar').style.width=(h.mp/h.maxMp*100)+'%';document.getElementById('xp-bar').style.width=(h.xp/h.xpNext*100)+'%';document.getElementById('hp-val').textContent=h.hp+'/'+h.maxHp;document.getElementById('mp-val').textContent=h.mp+'/'+h.maxMp;document.getElementById('xp-val').textContent=h.xp+'/'+h.xpNext;document.getElementById('level').textContent=h.level;document.getElementById('atk-val').textContent=h.atk;document.getElementById('def-val').textContent=h.def;document.getElementById('gold-val').textContent=h.gold;for(const[k,a]of Object.entries(G.abilities)){const cd=document.getElementById('cd-'+k),btn=document.getElementById('btn-'+k);if(!cd||!btn)continue;if(a.cd>0){cd.textContent='CD:'+a.cd.toFixed(1);btn.disabled=true;}else if(a.mpCost>0){cd.textContent=a.mpCost+'MP';btn.disabled=h.mp<a.mpCost;}else{cd.textContent='Ready';btn.disabled=false;}}}
+function heroDmg(enemy,dmg){const d=Math.max(1,dmg-enemy.def);enemy.hp-=d;float(enemy.px,enemy.py-TILE*0.5,'-'+d,'#e84040');if(enemy.hp<=0){enemy.alive=false;log('Slew '+enemy.type+'! +'+enemy.xp+'XP +'+enemy.gold+'g','loot');G.hero.xp+=enemy.xp;G.hero.gold+=enemy.gold;checkLvl();checkStageEnd();}}
+function enemyDmgHero(e){const h=G.hero,d=Math.max(1,e.atk-h.def+rand(-2,2));h.hp=Math.max(0,h.hp-d);float(h.px,h.py-TILE*0.5,'-'+d,'#ff6060');log(e.type+' hits you for '+d,'combat');if(h.hp<=0)endGame(false);}
+function checkLvl(){const h=G.hero;while(h.xp>=h.xpNext){h.level++;h.xp-=h.xpNext;h.xpNext=Math.floor(h.xpNext*1.6);h.maxHp+=20;h.hp=h.maxHp;h.maxMp+=8;h.mp=h.maxMp;h.atk+=4;h.def+=2;log('Level Up! Lv'+h.level,'magic');float(h.px,h.py-TILE,'LVL UP!','#f5c842');}}
+function checkStageEnd(){if(G.stage===1){if(G.enemies.every(e=>!e.alive))log('All enemies down! Reach the exit','sys');}else if(G.stage===2){const boss=G.enemies.find(e=>e.type==='dragon');if(boss&amp;&amp;!boss.alive)log('Dragon defeated! Find the exit!','sys');}else{const boss=G.enemies.find(e=>e.type==='voidlord');if(boss&amp;&amp;!boss.alive)endGame(true);}}
+const HERO_SPEED=100,ATTACK_RANGE=TILE*0.9,ENEMY_AGGRO=TILE*6;
+const keys={};
+document.addEventListener('keydown',e=>{keys[e.code]=true;if(e.code==='KeyV'||(e.code==='Escape'&amp;&amp;shopOpen)){if(shopOpen)closeShop();else openShop();e.preventDefault();return;}if(e.code==='Digit1'){useAbility('slash');e.preventDefault();}if(e.code==='Digit2'){useAbility('fireball');e.preventDefault();}if(e.code==='Digit3'){useAbility('heal');e.preventDefault();}if(e.code==='Digit4'){useAbility('charge');e.preventDefault();}if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyW','KeyA','KeyS','KeyD','Space'].includes(e.code))e.preventDefault();});
+document.addEventListener('keyup',e=>{keys[e.code]=false;});
+let lastTime=0;
+function update(now){const dt=Math.min((now-lastTime)/1000,0.05);lastTime=now;if(!G.running)return;const h=G.hero;let vx=0,vy=0;if(keys['ArrowUp']||keys['KeyW'])vy-=1;if(keys['ArrowDown']||keys['KeyS'])vy+=1;if(keys['ArrowLeft']||keys['KeyA'])vx-=1;if(keys['ArrowRight']||keys['KeyD'])vx+=1;if(vx!==0&amp;&amp;vy!==0){vx*=0.707;vy*=0.707;}const spd=HERO_SPEED*dt;const nx=h.px+vx*spd,ny=h.py+vy*spd;if(vx!==0&amp;&amp;canMoveTo(nx,h.py))h.px=nx;if(vy!==0&amp;&amp;canMoveTo(h.px,ny))h.py=ny;h.atkCd=Math.max(0,h.atkCd-dt);if(keys['Space']&amp;&amp;h.atkCd<=0){const closest=G.enemies.filter(e=>e.alive).sort((a,b)=>pdist(a,h)-pdist(b,h))[0];if(closest&amp;&amp;pdist(closest,h)<ATTACK_RANGE*1.5){heroDmg(closest,rand(h.atk-3,h.atk+3));h.atkCd=1/h.atkRate;}}for(const a of Object.values(G.abilities))a.cd=Math.max(0,a.cd-dt);h.mp=Math.min(h.maxMp,h.mp+4*dt);for(const e of G.enemies){if(!e.alive)continue;e.atkCd=Math.max(0,e.atkCd-dt);const d=pdist(e,h);if(d<ATTACK_RANGE){if(e.atkCd<=0){enemyDmgHero(e);e.atkCd=1/e.atkRate;}}else if(d<ENEMY_AGGRO){const dx=h.px-e.px,dy=h.py-e.py;const len=Math.hypot(dx,dy)||1;const mv=e.speed*dt;const ex=e.px+dx/len*mv,ey=e.py+dy/len*mv;if(canMoveTo(ex,e.py))e.px=ex;else if(canMoveTo(e.px,ey))e.py=ey;}}const htx=Math.floor(h.px/TILE),hty=Math.floor(h.py/TILE);const tile=curMap()[hty]?.[htx];if(tile===T.CHEST){const ch=G.chests.find(c=>!c.open&amp;&amp;c.x===htx&amp;&amp;c.y===hty);if(ch){ch.open=true;G.hero.gold+=ch.gold;if(ch.heal>0){G.hero.hp=Math.min(G.hero.maxHp,G.hero.hp+ch.heal);log('Chest: +'+ch.gold+'g +'+ch.heal+'HP','loot');}else log('Chest: +'+ch.gold+'g','loot');}}if(tile===T.EXIT){if(G.stage===1&amp;&amp;G.enemies.every(e=>!e.alive))enterStage(2);else if(G.stage===2){const boss=G.enemies.find(e=>e.type==='dragon');if(boss&amp;&amp;!boss.alive)enterStage(3);}}for(let i=G.floats.length-1;i>=0;i--){G.floats[i].t+=dt;if(G.floats[i].t>1)G.floats.splice(i,1);}}
+function useAbility(name){if(!G.running)return;const h=G.hero,ab=G.abilities[name];if(ab.cd>0){log('Cooling down!','sys');return;}if(h.mp<ab.mpCost){log('Not enough MP!','sys');return;}h.mp-=ab.mpCost;ab.cd=ab.maxCd;const alive=G.enemies.filter(e=>e.alive);if(name==='heal'){const amt=rand(25,45);h.hp=Math.min(h.maxHp,h.hp+amt);log('Healed '+amt+' HP','heal');float(h.px,h.py-TILE,'+'+amt,'#40d040');}else if(name==='fireball'){const tgts=alive.filter(e=>pdist(e,h)<=TILE*4.5);if(!tgts.length){log('No targets in range!','sys');h.mp+=ab.mpCost;ab.cd=0;return;}for(const t of tgts)heroDmg(t,rand(ab.dmg[0],ab.dmg[1])+h.level*2);log('Fireball hits '+tgts.length+' targets!','magic');}else if(name==='slash'){const cl=alive.filter(e=>pdist(e,h)<ATTACK_RANGE*1.6).sort((a,b)=>pdist(a,h)-pdist(b,h))[0];if(!cl){log('No enemy in range!','sys');h.mp+=ab.mpCost;ab.cd=0;return;}heroDmg(cl,rand(ab.dmg[0],ab.dmg[1])+h.level*3);log('Slash hits '+cl.type,'combat');}else{const cl=alive.filter(e=>pdist(e,h)<TILE*2.2).sort((a,b)=>pdist(a,h)-pdist(b,h))[0];if(!cl){log('No enemy close enough!','sys');h.mp+=ab.mpCost;ab.cd=0;return;}heroDmg(cl,rand(ab.dmg[0],ab.dmg[1])+h.level*3);log('Charge hits '+cl.type,'combat');}}
+let shopOpen=false;
+function openShop(){if(!G.running&amp;&amp;!shopOpen)return;shopOpen=true;G.running=false;for(const k of Object.keys(SHOP)){const el=document.getElementById('si-'+k);if(el){if(SHOP[k].sold)el.classList.add('sold');else el.classList.remove('sold');}}document.getElementById('shop-gold-val').textContent=G.hero.gold;document.getElementById('shop-msg').textContent='';document.getElementById('shop-overlay').classList.add('active');}
+function closeShop(){shopOpen=false;document.getElementById('shop-overlay').classList.remove('active');G.running=true;}
+function buyItem(key){const item=SHOP[key];if(!item||item.sold)return;const h=G.hero;if(h.gold<item.cost){document.getElementById('shop-msg').textContent='Not enough gold!';document.getElementById('shop-msg').style.color='#e06060';return;}h.gold-=item.cost;item.sold=true;document.getElementById('si-'+key).classList.add('sold');document.getElementById('shop-gold-val').textContent=h.gold;let msg='';switch(key){case 'hppotion':h.hp=Math.min(h.maxHp,h.hp+60);msg='+60 HP!';break;case 'mppotion':h.mp=h.maxMp;msg='Full MP!';break;case 'sword':h.atk+=8;msg='+8 ATK!';break;case 'armor':h.def+=5;msg='+5 DEF!';break;case 'ring':h.maxMp+=20;h.mp=Math.min(h.mp+20,h.maxMp);msg='+20 MaxMP!';break;case 'lifestone':h.maxHp+=30;h.hp=h.maxHp;msg='+30 MaxHP!';break;case 'elixir':h.atk+=5;h.def+=3;msg='+5ATK +3DEF!';break;case 'tome':G.abilities.fireball.dmg[0]+=20;G.abilities.fireball.dmg[1]+=20;G.abilities.fireball.maxCd=Math.max(1,G.abilities.fireball.maxCd-1);msg='Fireball upgraded!';break;}document.getElementById('shop-msg').textContent=msg;document.getElementById('shop-msg').style.color='#60d060';if(!acquiredUpgrades.includes(key))acquiredUpgrades.push(key);renderUpgrades();updateHUD();}
+function enterStage(n){G.stage=n;const cfg={2:{e:S2E(),c:S2C(),px:7.5*TILE,py:3.5*TILE,badge:'Stage 2 - The Volcanic Lair',m1:'You descend into the Volcanic Lair...',m2:'Defeat the Dragon, then reach the exit!'},3:{e:S3E(),c:S3C(),px:7.5*TILE,py:3.5*TILE,badge:'Stage 3 - The Void Citadel',m1:'You step into the Void Citadel...',m2:'The Voidlord awaits!'}}[n];G.enemies=cfg.e;G.chests=cfg.c;G.hero.px=cfg.px;G.hero.py=cfg.py;G.floats=[];document.getElementById('stage-badge').textContent=cfg.badge;log(cfg.m1,'sys');log(cfg.m2,'sys');updateHUD();}
+function endGame(win){G.running=false;document.getElementById('shop-overlay').classList.remove('active');const ov=document.getElementById('overlay');document.getElementById('overlay-title').textContent=win?'Victory!':'Defeated';document.getElementById('overlay-title').style.color=win?'#f5c842':'#e84040';document.getElementById('overlay-msg').innerHTML=win?'The Voidlord is vanquished!<br>Level '+G.hero.level+' - '+G.hero.gold+'g collected':'You have fallen...<br>Stage '+G.stage;document.getElementById('overlay-btn').textContent='Play Again';document.getElementById('overlay-btn').onclick=initGame;ov.classList.add('active');}
+function initGame(){document.getElementById('overlay').classList.remove('active');document.getElementById('shop-overlay').classList.remove('active');document.getElementById('stage-badge').textContent='Stage 1 - The Cursed Forest';document.getElementById('log').innerHTML='';for(const k of Object.keys(SHOP))SHOP[k].sold=false;shopOpen=false;G={running:true,stage:1,hero:freshHero(),enemies:S1E(),chests:S1C(),abilities:freshAb(),floats:[]};acquiredUpgrades=[];renderUpgrades();log('WASD to move, Space to attack!','sys');log('Press V for shop, 1-4 for abilities','sys');updateHUD();}
+function tileCol(t,x,y,s){const alt=(x+y)%2===0;if(s===3){switch(t){case 0:return alt?'#0a0810':'#120e1a';case 1:return alt?'#1a1628':'#201c30';case 2:return alt?'#0e0818':'#160c22';case 3:return alt?'#1a0030':'#240040';case 4:return alt?'#2a2040':'#342a4e';default:return alt?'#1a1628':'#201c30';}}if(s===2){switch(t){case 0:return alt?'#181410':'#201c14';case 1:return alt?'#281e1a':'#30241e';case 2:return alt?'#201008':'#2a140a';case 3:return alt?'#3a1200':'#4e1800';case 4:return alt?'#4a3e28':'#5a4e38';default:return alt?'#281e1a':'#30241e';}}switch(t){case 0:return alt?'#1a1410':'#221c14';case 1:return alt?'#3a3228':'#423a30';case 2:return alt?'#1e3c12':'#2a5018';case 3:return alt?'#0e2240':'#162e50';case 4:return alt?'#4a3e28':'#5a4e38';default:return alt?'#3a3228':'#423a30';}}
+const EMO={goblin:'G',orc:'O',troll:'T',wraith:'W',dragon:'D',demon:'X',lich:'L',voidlord:'V'};
+let animT=0;
+function draw(now){animT=now*0.001;ctx.clearRect(0,0,PX,PY);const m=curMap(),s=G.stage;for(let y=0;y<ROWS;y++)for(let x=0;x<COLS;x++){const t=m[y][x];ctx.fillStyle=tileCol(t,x,y,s);ctx.fillRect(x*TILE,y*TILE,TILE,TILE);if(t===3){const p=0.25+0.1*Math.sin(animT*3+x+y);ctx.fillStyle=s===3?'rgba(120,0,220,'+p+')':s===2?'rgba(220,55,0,'+p+')':'rgba(30,80,160,'+p+')';ctx.fillRect(x*TILE,y*TILE,TILE,TILE);}if(t===5){const ch=G.chests.find(c=>c.x===x&amp;&amp;c.y===y);if(!ch||!ch.open){ctx.fillStyle='#d4a017';ctx.fillRect(x*TILE+6,y*TILE+8,20,16);ctx.fillStyle='#8b6914';ctx.fillRect(x*TILE+6,y*TILE+8,20,6);}}if(t===6){const exitReady=(s===1&amp;&amp;G.enemies.every(e=>!e.alive))||(s===2&amp;&amp;G.enemies.find(e=>e.type==='dragon')&amp;&amp;!G.enemies.find(e=>e.type==='dragon').alive);ctx.fillStyle=exitReady?'rgba(128,255,64,0.6)':'rgba(64,96,48,0.4)';ctx.fillRect(x*TILE,y*TILE,TILE,TILE);ctx.fillStyle=exitReady?'#80ff40':'#406030';ctx.font='20px serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('EXIT',x*TILE+TILE/2,y*TILE+TILE/2);}ctx.strokeStyle='rgba(0,0,0,0.12)';ctx.lineWidth=0.5;ctx.strokeRect(x*TILE,y*TILE,TILE,TILE);}
+for(const e of G.enemies){if(!e.alive)continue;const colors={goblin:'#40c040',orc:'#c04040',troll:'#808040',wraith:'#8060c0',dragon:'#e84a1a',demon:'#c02020',lich:'#40c0a0',voidlord:'#8000ff'};ctx.fillStyle=colors[e.type]||'#888';const big=e.type==='dragon'||e.type==='troll'||e.type==='voidlord';const sz=big?22:16;ctx.beginPath();ctx.arc(e.px,e.py,sz/2,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.font='bold '+(big?12:9)+'px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(e.type[0].toUpperCase(),e.px,e.py);const bw=TILE-4,bx=e.px-bw/2,by=e.py-TILE*0.6;ctx.fillStyle='#400';ctx.fillRect(bx,by,bw,4);ctx.fillStyle='#e04040';ctx.fillRect(bx,by,bw*(e.hp/e.maxHp),4);}
+const h=G.hero;ctx.fillStyle='#f5c842';ctx.beginPath();ctx.arc(h.px,h.py,10,0,Math.PI*2);ctx.fill();ctx.fillStyle='#1a1610';ctx.font='bold 10px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('A',h.px,h.py);
+for(const f of G.floats){ctx.save();ctx.globalAlpha=1-f.t;ctx.fillStyle=f.color;ctx.font='bold 13px sans-serif';ctx.textAlign='center';ctx.fillText(f.text,f.x,f.y-f.t*40);ctx.restore();}
+ctx.fillStyle='rgba(0,0,0,0.7)';ctx.fillRect(0,0,PX,18);ctx.fillStyle=G.stage===1?'#e0a040':G.stage===2?'#e06030':'#a060e0';ctx.font='10px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';const alive=G.enemies.filter(e=>e.alive).length;let hint=G.stage===1?(alive>0?'Stage 1: Defeat '+alive+' more enemies, reach exit':'Stage 1: All clear! Reach the exit'):G.stage===2?(alive>0?'Stage 2: Defeat Dragon ('+alive+' remain), reach exit':'Stage 2: Dragon slain! Reach exit'):alive>0?'Stage 3: Slay the Voidlord ('+alive+' remain)':'VICTORY!';ctx.fillText(hint,PX/2,9);}
+function loop(now){update(now);draw(now);updateHUD();requestAnimationFrame(loop);}
+G={running:false,stage:1,hero:freshHero(),enemies:[],chests:[],abilities:freshAb(),floats:[]};
+document.getElementById('overlay').classList.add('active');
+document.getElementById('overlay-btn').onclick=initGame;
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>"></iframe>
+</div>
 
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
   document.querySelectorAll('section').forEach(s => observer.observe(s));
+
+  function openGame() {
+    document.getElementById('game-modal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeGame() {
+    document.getElementById('game-modal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.code === 'Escape') closeGame();
+  });
 </script>
 </body>
 </html>
